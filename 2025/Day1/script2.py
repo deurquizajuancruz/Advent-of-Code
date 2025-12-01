@@ -6,7 +6,6 @@ line = stdin.readline()
 while line:
     direction: str = line[0]
     number: int = int(line[1:])
-    copy: int = point
     if direction == "L":
         for i in range(number):
             point -= 1
