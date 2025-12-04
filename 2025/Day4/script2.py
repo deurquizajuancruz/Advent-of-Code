@@ -92,7 +92,6 @@ while keep_going:
                         index,
                     )
                 else:
-                    # print(f"Linea {number_line} index {index}")
                     amount = check_adjacent(
                         matrix[number_line],
                         matrix[number_line - 1],
@@ -111,7 +110,5 @@ while keep_going:
             for index_char in replace_indexes:
                 line_list[index_char] = "."
             matrix[index] = line_list
-    # for line in matrix:
-    #     print(line)
 
 print(total)

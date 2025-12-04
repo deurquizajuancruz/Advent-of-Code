@@ -32,24 +32,12 @@ def check_adjacent(my_line: list, up_line: list, down_line: list, index: int) ->
         + down_line[index]
     ).count("@")
 
-
-def corner_left(my_line: list, up_line: list, down_line: list, index: int) -> int:
+def corner(
+    my_line: list, up_line: list, down_line: list, index: int, rest: bool
+) -> int:
+    pos: int = index - 1 if rest else index + 1
     return str(
-        my_line[index + 1]
-        + up_line[index + 1]
-        + up_line[index]
-        + down_line[index + 1]
-        + down_line[index]
-    ).count("@")
-
-
-def corner_right(my_line: list, up_line: list, down_line: list, index: int) -> int:
-    return str(
-        my_line[index - 1]
-        + up_line[index - 1]
-        + up_line[index]
-        + down_line[index - 1]
-        + down_line[index]
+        my_line[pos] + up_line[pos] + up_line[index] + down_line[pos] + down_line[index]
     ).count("@")
 
 
@@ -72,18 +60,20 @@ for line in matrix:
                 )
         else:
             if index == 0:
-                amount = corner_left(
+                amount = corner(
                     matrix[number_line],
                     matrix[number_line - 1],
                     matrix[number_line + 1],
                     index,
+                    False,
                 )
             elif index + 1 == last_position_row:
-                amount = corner_right(
+                amount = corner(
                     matrix[number_line],
                     matrix[number_line - 1],
                     matrix[number_line + 1],
                     index,
+                    True,
                 )
             else:
                 amount = check_adjacent(
