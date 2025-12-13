@@ -23,37 +23,33 @@ public class Script {
             return this.content;
         }
 
-        public void markVisited() {
-            this.visited = true;
-        }
-
-        public void unmarkVisited() {
-            this.visited = false;
+        public void changeVisited() {
+            this.visited = !this.visited;
         }
 
         public boolean isVisited() {
             return this.visited;
         }
 
-        public int tour() {
-            this.markVisited();
+        public int dfs() {
+            this.changeVisited();
             int paths = 0;
             if (this.getContent().equals("out")) {
                 paths = 1;
             } else if (this.adjacent.size() > 0) {
                 for (Node adj : this.adjacent) {
                     if (!adj.isVisited()) {
-                        paths += adj.tour();
+                        paths += adj.dfs();
                     }
                 }
             }
-            this.unmarkVisited();
+            this.changeVisited();
             return paths;
         }
     }
 
     private static class Graph {
-        List<Node> nodes;
+        private List<Node> nodes;
 
         public Graph() {
             this.nodes = new ArrayList<Node>();
@@ -85,8 +81,8 @@ public class Script {
                 origin = new Node(divided[0]);
                 myGraph.addNode(origin);
             }
-            String[] adjacentes = divided[1].trim().split(" ");
-            for (String adj : adjacentes) {
+            String[] adjacents = divided[1].trim().split(" ");
+            for (String adj : adjacents) {
                 Node adjacentNode = myGraph.inGraph(adj);
                 if (adjacentNode == null) {
                     adjacentNode = new Node(adj);
@@ -98,7 +94,7 @@ public class Script {
         scanner.close();
 
         Node you = myGraph.inGraph("you");
-        int paths = you.tour();
+        int paths = you.dfs();
         System.out.println(paths);
     }
 }
